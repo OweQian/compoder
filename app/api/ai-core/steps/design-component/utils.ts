@@ -15,9 +15,9 @@ export interface ComponentDesign {
   library: Array<{
     // 库名称
     name: string
-    // 组件列表
+    // 可能用到的组件列表
     components: string[]
-    // 组件描述
+    // 组件描述，拼接为字符串
     description: string
   }>
   // 私有组件库召回内容

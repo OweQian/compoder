@@ -9,6 +9,7 @@ export const designComponent = async (
 ): Promise<DesignProcessingWorkflowContext> => {
   context.stream.write("start design component \n")
 
+  // 生成组件设计
   const componentDesign = await generateComponentDesign(context)
 
   context.stream.write("design component end \n\n")
@@ -16,6 +17,7 @@ export const designComponent = async (
   return {
     ...context,
     state: {
+      // 设计任务
       designTask: componentDesign,
     },
   }

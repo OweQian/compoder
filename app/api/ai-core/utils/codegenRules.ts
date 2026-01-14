@@ -66,36 +66,41 @@ export function getPrivateComponentDocs(rules: CodegenRule[]) {
 }
 
 export function getPrivateDocsDescription(rules: CodegenRule[]): string {
+  // 获取私有组件文档 -- docs
   const docs = getPrivateComponentDocs(rules)
+  // 获取公共组件库 -- dataSet
   const publicLibraryComponents = getPublicComponentsRule(rules)
 
-  // Helper function to check if public library components are valid and non-empty
+  // 检查公共组件库是否有效且非空
   const isPublicLibraryValid = (components: string[] | undefined): boolean => {
     return !!components && Array.isArray(components) && components.length > 0
   }
 
+  // 检查私有组件库是否有效且非空
   const isPrivateLibraryValid = (
     docs: Record<string, any> | undefined,
   ): boolean => {
     return !!docs && Object.keys(docs).length > 0
   }
 
+  // 检查公共组件库是否有效且非空
   const hasPublicLibrary = isPublicLibraryValid(publicLibraryComponents)
+  // 检查私有组件库是否有效且非空
   const hasPrivateLibrary = isPrivateLibraryValid(docs)
 
-  // when there is no valid component library, return empty string
+  // 当没有有效的组件库时，返回空字符串
   if (!hasPrivateLibrary && !hasPublicLibrary) {
     return ""
   }
 
-  // Helper function to format public library components as a string
+  // 格式化公共组件库组件为字符串
   const formatPublicLibraryComponents = (
     components: string[] | undefined,
   ): string => {
     return components?.join(", ") || ""
   }
 
-  // If docs is empty but public library exists, return only public library description
+  // 当私有组件库为空但公共组件库存在时，返回公共组件库描述
   if (!hasPrivateLibrary) {
     return hasPublicLibrary
       ? `- All components in ${formatPublicLibraryComponents(
@@ -106,7 +111,7 @@ export function getPrivateDocsDescription(rules: CodegenRule[]): string {
 
   const templates: string[] = []
 
-  // Add public library components if available
+  // 添加公共组件库组件
   if (hasPublicLibrary) {
     templates.push(`
         - All components in ${formatPublicLibraryComponents(
@@ -115,31 +120,36 @@ export function getPrivateDocsDescription(rules: CodegenRule[]): string {
       `)
   }
 
-  // Process private component libraries
+  // 处理私有组件库
   for (const namespace in docs) {
     if (docs.hasOwnProperty(namespace)) {
       const components = docs[namespace]
+      // 组件描述
       let componentDescriptions = ""
 
       for (const key in components) {
         if (components.hasOwnProperty(key)) {
           const component = components[key]
+          // 组件描述
           componentDescriptions += `
   ${key}: ${component.description}
   `
         }
       }
 
+      // 模板
       const template = `
   - Components in ${namespace}, below are descriptions of ${namespace} components (can only use component names listed below)
   ---------------------
   ${componentDescriptions.trim()}
   ---------------------
   `
+      // 添加模板
       templates.push(template.trim())
     }
   }
 
+  // 返回模板
   return templates.join("\n\n")
 }
 

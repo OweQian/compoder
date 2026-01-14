@@ -7,18 +7,27 @@ import {
 import { z } from "zod"
 
 export interface ComponentDesign {
+  // 组件名称
   componentName: string
+  // 组件描述
   componentDescription: string
+  // 组件库
   library: Array<{
+    // 库名称
     name: string
+    // 组件列表
     components: string[]
+    // 组件描述
     description: string
   }>
+  // 私有组件库召回内容
   retrievedAugmentationContent?: string
 }
 
 const buildSystemPrompt = (rules: WorkflowContext["query"]["rules"]) => {
+  // 获取组件文档描述
   const componentsDescription = getPrivateDocsDescription(rules)
+  // 检查是否存在组件库
   const hasComponentLibraries = !!componentsDescription
 
   // create prompt parts for different situations
@@ -63,11 +72,13 @@ Please note: You should not provide example code and any other text in your resp
     : promptParts.withoutLibraries
 
   // build the workflow steps
+  // 构建工作流步骤
   const workflowSteps = `1. Accept user's business requirements or design draft images
     ${parts.workflowStep2}
     3. Generate and return the JSON response in the specified format`
 
   // build the final prompt
+  // 构建最终提示词
   return `
     # You are a senior frontend engineer who excels at developing business components.
     
@@ -90,6 +101,7 @@ Please note: You should not provide example code and any other text in your resp
 const buildCurrentComponentMessage = (
   component: WorkflowContext["query"]["component"],
 ): Array<CoreMessage> => {
+  // 当组件存在时，构建对应的用户消息和助手消息(版本迭代时使用)
   return component
     ? [
         {
@@ -118,6 +130,7 @@ const buildCurrentComponentMessage = (
 const buildUserMessage = (
   prompt: WorkflowContext["query"]["prompt"],
 ): Array<CoreMessage> => {
+  // 构建用户消息
   return [
     {
       role: "user",
@@ -198,7 +211,7 @@ export async function generateComponentDesign(
     componentDescription: "componentDescription",
     library: [],
   }
-
+  // 构建系统提示词
   const systemPrompt = buildSystemPrompt(req.query.rules)
 
   console.log("design-component systemPrompt:", systemPrompt)
@@ -206,6 +219,8 @@ export async function generateComponentDesign(
     ...buildCurrentComponentMessage(req.query.component),
     ...buildUserMessage(req.query.prompt),
   ]
+
+  console.log("design-component messages:", messages)
 
   try {
     const stream = await streamText({
@@ -217,7 +232,9 @@ export async function generateComponentDesign(
     let accumulatedJson = ""
 
     for await (const part of stream.textStream) {
+      // 写入流
       req.stream.write(part)
+      // 累加 JSON
       accumulatedJson += part
     }
 
@@ -270,11 +287,14 @@ export async function generateComponentDesign(
     }
 
     if (parserCompletion.library.length > 0) {
+      // 获取私有组件文档
       const docs = getPrivateComponentDocs(req.query.rules)
+      // 获取组件库内容
       parserCompletion.retrievedAugmentationContent =
         getRetrievedAugmentationContent(docs, parserCompletion.library)
     }
 
+    console.log("parserCompletion", parserCompletion)
     return parserCompletion
   } catch (err: unknown) {
     console.log("err", err)

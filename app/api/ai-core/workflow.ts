@@ -4,8 +4,11 @@ import { designComponent, generateComponent, storeComponent } from "./steps"
 import { InitialWorkflowContext, WorkflowContext } from "./type"
 
 export const componentWorkflow = pipe<InitialWorkflowContext, WorkflowContext>(
+  // 设计组件
   withErrorHandling(designComponent),
+  // 生成组件
   withErrorHandling(generateComponent),
+  // 存储组件
   withErrorHandling(storeComponent),
 )
 

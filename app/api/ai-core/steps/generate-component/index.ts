@@ -12,6 +12,7 @@ export const generateComponent = async (
 
   let completion = ""
 
+  // 构建系统提示词
   const systemPrompt = buildSystemPrompt(
     context.query.rules,
     context.state?.designTask?.retrievedAugmentationContent,

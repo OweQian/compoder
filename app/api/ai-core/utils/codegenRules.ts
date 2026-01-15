@@ -54,10 +54,12 @@ const defaultAdditionalRules = `
 `
 
 export function getPublicComponentsRule(rules: CodegenRule[]) {
+  // 获取公共组件库 -- dataSet
   return rules.find(rule => rule.type === "public-components")?.dataSet
 }
 
 export function getStylesRule(rules: CodegenRule[]) {
+  // 获取样式规范
   return rules.find(rule => rule.type === "styles")?.prompt ?? defaultStyles
 }
 
@@ -154,16 +156,20 @@ export function getPrivateDocsDescription(rules: CodegenRule[]): string {
 }
 
 export function getFileStructureRule(rules: CodegenRule[]) {
+  // 获取文件结构规范
   const customPrompt = rules.find(
     rule => rule.type === "file-structure",
   )?.prompt
   if (customPrompt) {
+    // 返回自定义文件结构规范
     return IMPORTANT_NOTE + customPrompt
   }
+  // 返回默认文件结构规范
   return defaultFileStructure
 }
 
 export function getSpecialAttentionRules(rules: CodegenRule[]) {
+  // 获取特殊注意规则
   return (
     rules.find(rule => rule.type === "attention-rules")?.prompt ??
     defaultAdditionalRules

@@ -20,6 +20,7 @@ export const generateComponent = async (
 
   console.log("generate-component systemPrompt:", systemPrompt)
 
+  // 构建用户提示词
   const messages = generateComponentMessage(context)
 
   const stream = await streamText({
@@ -41,6 +42,7 @@ export const generateComponent = async (
 
   context.stream.write("call codegen-ai end \n\n")
 
+  // 返回生成代码
   return {
     ...context,
     state: {

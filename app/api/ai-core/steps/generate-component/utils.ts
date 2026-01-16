@@ -124,6 +124,7 @@ export const buildSystemPrompt = (
 export const buildCurrentComponentMessage = (
   component: WorkflowContext["query"]["component"],
 ): Array<CoreMessage> => {
+  // 当组件存在时，构建对应的用户消息和助手消息(版本迭代时使用)
   return component
     ? [
         {
@@ -153,6 +154,7 @@ export const buildUserMessage = (
   prompt: WorkflowContext["query"]["prompt"],
   design: NonNullable<WorkflowContext["state"]>["designTask"],
 ): Array<CoreMessage> => {
+  // 构建用户消息
   return [
     {
       role: "user",

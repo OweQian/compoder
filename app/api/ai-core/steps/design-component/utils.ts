@@ -290,7 +290,7 @@ export async function generateComponentDesign(
     if (parserCompletion.library.length > 0) {
       // 获取私有组件文档
       const docs = getPrivateComponentDocs(req.query.rules)
-      // 获取组件库内容
+      // 获取组件库内容 - api 拼接内容
       parserCompletion.retrievedAugmentationContent =
         getRetrievedAugmentationContent(docs, parserCompletion.library)
     }

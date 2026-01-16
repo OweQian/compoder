@@ -1,5 +1,10 @@
 import { CodegenRule } from "@/lib/db/codegen/types"
 
+/**
+ * 重要提示：请直接在每个 ComponentFile 标签内编写代码，不要在 XML 标签内使用代码块标记
+ * 修改规则：修改现有组件代码时，只返回需要修改的 <ComponentFile> 节点，但必须包含该文件的完整代码内容，即使只修改了一小部分
+ */
+
 const IMPORTANT_NOTE = `Important: Write the code directly inside each ComponentFile tag. Do NOT use any code block markers (like \`\`\`tsx, \`\`\`ts, etc.) inside the XML tags.
 
 When modifying existing component code, only return the <ComponentFile> nodes that need to be modified, without returning unchanged files. However, for each modified <ComponentFile> node, you must include the complete code content of that file, even if only a small portion was modified. This ensures the system correctly replaces the entire file content and maintains code integrity.

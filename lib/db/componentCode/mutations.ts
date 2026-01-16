@@ -17,6 +17,7 @@ export async function createComponentCode({
   code: string
 }) {
   try {
+    // 组件代码入库
     const componentCode = await ComponentCodeModel.create({
       userId,
       codegenId,
@@ -54,6 +55,7 @@ export async function updateComponentCode({
     if (!componentCode) {
       throw new Error("Component code not found")
     }
+    // 入库，将新的版本添加到组件代码中 - versions数组
     componentCode.versions.push({ prompt, code })
     await componentCode.save()
     return {

@@ -58,6 +58,7 @@ export const storeComponent = async (
   if (context.query.component) {
     // 获取原始代码和新生成的代码
     const originalCode = context.query.component.code
+    // 只有修改的文件的代码需要更新，其它保持不变
     const newCode = context.state.generatedCode
 
     // 合并组件文件
@@ -69,6 +70,7 @@ export const storeComponent = async (
       code: mergedCode,
     })
   } else {
+    // 组件代码入库
     const newComponent = await createComponentCode({
       userId: context.query.userId,
       codegenId: context.query.codegenId!,

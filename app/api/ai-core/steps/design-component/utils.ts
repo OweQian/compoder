@@ -215,6 +215,7 @@ export async function generateComponentDesign(
   const systemPrompt = buildSystemPrompt(req.query.rules)
 
   console.log("design-component systemPrompt:", systemPrompt)
+  // 构建用户消息
   const messages = [
     ...buildCurrentComponentMessage(req.query.component),
     ...buildUserMessage(req.query.prompt),

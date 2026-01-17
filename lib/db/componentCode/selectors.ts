@@ -2,6 +2,7 @@ import { ComponentCodeModel } from "./schema"
 import { FilterQuery } from "mongoose"
 import { ComponentCode } from "./types"
 
+// 查询组件代码列表
 export async function listComponentCodes({
   userId,
   codegenId,
@@ -62,6 +63,7 @@ export async function listComponentCodes({
   }
 }
 
+// 查询组件代码详情
 export async function getComponentCodeDetail(id: string) {
   const componentCode = await ComponentCodeModel.findById(id)
     .select("_id name description versions")

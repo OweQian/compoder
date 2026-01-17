@@ -9,6 +9,7 @@ export const authOptions: NextAuthOptions = {
   debug: true,
   adapter: MongoDBAdapter(clientPromise) as Adapter,
   providers: [
+    // Github 登录
     GithubProvider({
       clientId: env.GITHUB_ID,
       clientSecret: env.GITHUB_SECRET,

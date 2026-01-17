@@ -9,6 +9,7 @@ import { validateSession } from "@/lib/auth/middleware"
 import { LanguageModel } from "ai"
 import { AIProvider } from "@/lib/config/ai-providers"
 
+// 创建组件代码
 export async function POST(request: NextRequest) {
   try {
     const authError = await validateSession()
@@ -30,7 +31,7 @@ export async function POST(request: NextRequest) {
     const aiModel = getAIClient(body.provider as AIProvider, body.model)
 
     const response = new Response(stream.readable)
-
+    // 运行 AI 工作流
     run({
       stream: {
         write: (chunk: string) => writer.write(encoder.encode(chunk)),

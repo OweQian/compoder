@@ -2,6 +2,7 @@ import { CodegenModel } from "./schema"
 import { CodegenApi } from "@/app/api/codegen/types"
 import { Codegen } from "./types"
 
+// 查询代码生成器列表
 export async function findCodegens(params: CodegenApi.ListRequest) {
   const { page, pageSize, name, fullStack } = params
 
@@ -35,6 +36,7 @@ export async function findCodegens(params: CodegenApi.ListRequest) {
   }
 }
 
+// 查询代码生成器详情
 export async function findCodegenById(id: string) {
   const codegen = await CodegenModel.findById(id)
     .select("_id title description fullStack guides codeRendererUrl rules")
@@ -59,6 +61,7 @@ export async function findCodegenById(id: string) {
   return codegen
 }
 
+// 查询代码生成器代码渲染器 URL
 export async function getCodeRendererUrl(codegenId: string) {
   const codegen = await CodegenModel.findById(codegenId)
   return codegen?.codeRendererUrl

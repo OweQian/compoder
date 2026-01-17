@@ -3,6 +3,7 @@ import { deleteComponentCode } from "@/lib/db/componentCode/mutations"
 import { validateSession } from "@/lib/auth/middleware"
 import { connectToDatabase } from "@/lib/db/mongo"
 
+// 删除组件代码
 export async function DELETE(request: Request) {
   try {
     // 1. Validate session

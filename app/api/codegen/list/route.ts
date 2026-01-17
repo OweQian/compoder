@@ -4,6 +4,7 @@ import { CodegenApi } from "../types"
 import { validateSession } from "@/lib/auth/middleware"
 import { connectToDatabase } from "@/lib/db/mongo"
 
+// 查询代码生成器列表
 export async function GET(req: NextRequest) {
   try {
     // Add identity verification check

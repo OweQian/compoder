@@ -4,6 +4,7 @@ import { ComponentCodeApi } from "../type"
 import { ComponentCode } from "@/lib/db/componentCode/types"
 import { getCodeRendererUrl } from "@/lib/db/codegen/selectors"
 
+// 查询组件代码详情
 export async function GET(request: NextRequest) {
   try {
     const searchParams = request.nextUrl.searchParams

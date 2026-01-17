@@ -1,6 +1,7 @@
 import mongoose from "mongoose"
 import { Codegen } from "./types"
 
+// 代码生成器规则 Schema
 const CodegenRuleSchema = new mongoose.Schema({
   type: {
     type: String,
@@ -40,6 +41,7 @@ const CodegenRuleSchema = new mongoose.Schema({
   },
 })
 
+// 代码生成器 Schema
 const CodegenSchema = new mongoose.Schema<Codegen>(
   {
     title: {
@@ -79,5 +81,6 @@ const CodegenSchema = new mongoose.Schema<Codegen>(
   },
 )
 
+// 代码生成器模型
 export const CodegenModel =
   mongoose.models.Codegen || mongoose.model<Codegen>("Codegen", CodegenSchema)

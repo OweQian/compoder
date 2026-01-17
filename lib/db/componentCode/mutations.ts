@@ -1,6 +1,7 @@
 import { ComponentCodeModel } from "./schema"
 import { Prompt, Version } from "./types"
 
+// 创建组件代码
 export async function createComponentCode({
   userId,
   codegenId,
@@ -41,6 +42,7 @@ export async function createComponentCode({
   }
 }
 
+// 更新组件代码
 export async function updateComponentCode({
   id,
   prompt,
@@ -68,6 +70,7 @@ export async function updateComponentCode({
   }
 }
 
+// 保存组件代码版本
 export async function saveComponentCodeVersion({
   id,
   versionId,
@@ -103,6 +106,7 @@ export async function saveComponentCodeVersion({
   }
 }
 
+// 删除组件代码
 export async function deleteComponentCode({ id }: { id: string }) {
   try {
     const result = await ComponentCodeModel.findByIdAndDelete(id)

@@ -9,6 +9,7 @@ import { validateSession } from "@/lib/auth/middleware"
 import { LanguageModel } from "ai"
 import { AIProvider } from "@/lib/config/ai-providers"
 
+// 编辑组件代码
 export async function POST(request: NextRequest) {
   try {
     const authError = await validateSession()
@@ -37,7 +38,7 @@ export async function POST(request: NextRequest) {
     }
 
     const codegenDetail = await findCodegenById(params.codegenId)
-
+    // 运行 AI 工作流
     run({
       stream: {
         write: (chunk: string) => writer.write(encoder.encode(chunk)),

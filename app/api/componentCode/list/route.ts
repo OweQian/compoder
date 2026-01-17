@@ -3,6 +3,7 @@ import { listComponentCodes } from "@/lib/db/componentCode/selectors"
 import { getUserId, validateSession } from "@/lib/auth/middleware"
 import { connectToDatabase } from "@/lib/db/mongo"
 
+// 查询组件代码列表
 export async function GET(req: NextRequest) {
   try {
     // Add identity verification check

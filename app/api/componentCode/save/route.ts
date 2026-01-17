@@ -4,6 +4,7 @@ import type { ComponentCodeApi } from "../type"
 import { validateSession } from "@/lib/auth/middleware"
 import { connectToDatabase } from "@/lib/db/mongo"
 
+// 保存组件代码版本
 export async function POST(request: Request) {
   try {
     const authError = await validateSession()

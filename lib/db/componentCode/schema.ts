@@ -1,6 +1,7 @@
 import mongoose, { Schema, model } from "mongoose"
 import { ComponentCode, Prompt } from "./types"
 
+// 提示词 Schema
 const PromptSchema = new Schema({
   type: {
     type: String,
@@ -21,6 +22,7 @@ const PromptSchema = new Schema({
   },
 })
 
+// 版本 Schema
 const VersionSchema = new Schema({
   code: {
     type: String,
@@ -45,6 +47,7 @@ const VersionSchema = new Schema({
   },
 })
 
+// 组件代码 Schema
 const ComponentCodeSchema = new Schema(
   {
     userId: {

@@ -13,6 +13,7 @@ import { ComponentCodeApi } from "@/app/api/componentCode/type"
 import { ComponentItem } from "@/components/biz/ComponentCodeList/interface"
 import { transformComponentArtifactFromXml } from "@/lib/xml-message-parser/parser"
 
+// 查询代码生成器列表
 export const useGetCodegenList = (
   params: Omit<CodegenApi.ListRequest, "page">,
 ) => {
@@ -49,6 +50,7 @@ export const useGetCodegenList = (
   })
 }
 
+// 查询代码生成器详情
 export const useCodegenDetail = (id: string) => {
   return useQuery<
     CodegenApi.DetailResponse,
@@ -75,6 +77,7 @@ export const useCodegenDetail = (id: string) => {
   })
 }
 
+// 查询组件代码列表
 export const useComponentCodeList = (params: ComponentCodeApi.listRequest) => {
   return useQuery<
     ComponentCodeApi.listResponse,
@@ -110,6 +113,7 @@ export const useComponentCodeList = (params: ComponentCodeApi.listRequest) => {
   })
 }
 
+// 查询组件代码详情
 export const useComponentCodeDetail = (id: string, codegenId: string) => {
   return useQuery<
     ComponentCodeApi.detailResponse,

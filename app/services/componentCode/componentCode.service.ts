@@ -3,6 +3,7 @@ import { ComponentCodeApi } from "@/app/api/componentCode/type"
 
 const request = getInstance()
 
+// 查询组件代码列表
 export const getComponentCodeList = async (
   params: ComponentCodeApi.listRequest,
 ): Promise<ComponentCodeApi.listResponse> => {
@@ -22,6 +23,7 @@ export const getComponentCodeList = async (
   }
 }
 
+// 查询组件代码详情
 export const getComponentCodeDetail = async (
   params: ComponentCodeApi.detailRequest,
 ): Promise<ComponentCodeApi.detailResponse> => {
@@ -41,6 +43,7 @@ export const getComponentCodeDetail = async (
   }
 }
 
+// 创建组件代码
 export const createComponentCode = async (
   params: ComponentCodeApi.createRequest,
 ): Promise<ComponentCodeApi.createResponse> => {
@@ -58,6 +61,7 @@ export const createComponentCode = async (
   }
 }
 
+// 编辑组件代码
 export const editComponentCode = async (
   params: ComponentCodeApi.editRequest,
 ): Promise<ComponentCodeApi.editResponse> => {
@@ -75,6 +79,7 @@ export const editComponentCode = async (
   }
 }
 
+// 保存组件代码版本
 export const saveComponentCode = async (
   params: ComponentCodeApi.saveRequest,
 ): Promise<any> => {
@@ -92,6 +97,7 @@ export const saveComponentCode = async (
   }
 }
 
+// 删除组件代码
 export const deleteComponentCode = async (
   params: ComponentCodeApi.deleteRequest,
 ): Promise<void> => {

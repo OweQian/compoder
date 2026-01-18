@@ -8,6 +8,7 @@ import {
 import { ComponentCodeApi } from "@/app/api/componentCode/type"
 import { useToast } from "@/hooks/use-toast"
 
+// 创建组件代码
 export const useCreateComponentCode = () => {
   const queryClient = useQueryClient()
   const { toast } = useToast()
@@ -33,6 +34,7 @@ export const useCreateComponentCode = () => {
   })
 }
 
+// 编辑组件代码
 export const useEditComponentCode = () => {
   return useMutation<
     ComponentCodeApi.editResponse,
@@ -43,6 +45,7 @@ export const useEditComponentCode = () => {
   })
 }
 
+// 保存组件代码版本
 export const useSaveComponentCode = () => {
   const queryClient = useQueryClient()
   const { toast } = useToast()
@@ -63,6 +66,7 @@ export const useSaveComponentCode = () => {
   })
 }
 
+// 删除组件代码
 export const useDeleteComponentCode = () => {
   const queryClient = useQueryClient()
   const { toast } = useToast()

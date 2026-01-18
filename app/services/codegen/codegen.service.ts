@@ -2,6 +2,7 @@ import { getInstance } from "../request"
 import { CodegenApi } from "@/app/api/codegen/types"
 const request = getInstance()
 
+// 查询代码生成器列表
 export const getCodegenList = async (
   params: CodegenApi.ListRequest,
 ): Promise<CodegenApi.ListResponse> => {
@@ -17,6 +18,7 @@ export const getCodegenList = async (
   return response.json()
 }
 
+// 查询代码生成器详情
 export const getCodegenDetail = async (
   params: CodegenApi.DetailRequest,
 ): Promise<CodegenApi.DetailResponse> => {

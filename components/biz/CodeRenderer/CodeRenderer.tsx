@@ -31,6 +31,7 @@ export const CodeRenderer: FC<CodeRendererProps> = ({
 
   const sendMessage = useCallback(() => {
     if (iframeRef.current) {
+      // 发送消息到 iframe
       iframeRef.current.contentWindow?.postMessage(
         {
           type: "artifacts",
@@ -50,14 +51,17 @@ export const CodeRenderer: FC<CodeRendererProps> = ({
         return
       }
 
+      // 如果 iframe 加载完成，发送消息
       if (event.data === "IFRAME_LOADED") {
         sendMessage()
         setIsIframeLoaded(true)
       }
+      // 如果 iframe 加载失败
       if (event.data.type === "artifacts-error") {
         setErrorMessage(event.data.errorMessage)
         setShowErrorToast(true)
       }
+      // 如果 iframe 加载成功
       if (event.data.type === "artifacts-success") {
         setErrorMessage("")
         setShowErrorToast(false)

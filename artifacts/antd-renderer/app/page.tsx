@@ -26,8 +26,10 @@ const HomePage: React.FC = () => {
   const [entryFile, setEntryFile] = useState<string>("App.tsx")
 
   useEffect(() => {
+    // 处理消息
     const handleMessage = (event: MessageEvent) => {
       const { type, data }: MessagePayload = event.data
+      // 如果收到消息，设置文件和入口文件
       if (type === "artifacts") {
         setEntryFile(data.entryFile)
         setFiles(data.files)

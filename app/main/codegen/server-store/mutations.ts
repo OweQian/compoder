@@ -63,3 +63,28 @@ export const useDeleteComponentCode = () => {
     },
   })
 }
+
+export const useCreateComponentCode = () => {
+  const queryClient = useQueryClient()
+  const { toast } = useToast()
+
+  return useMutation<
+    ComponentCodeApi.createResponse,
+    Error,
+    ComponentCodeApi.createRequest
+  >({
+    mutationFn: params => createComponentCode(params),
+    onSuccess: () => {
+      // Invalidate the component list query to trigger a refresh
+      queryClient.invalidateQueries({ queryKey: ["componentCodeList"] })
+    },
+    onError: error => {
+      console.error("createComponentCode error", error)
+      toast({
+        title: "Error",
+        description: error.message || "Failed to create component",
+        variant: "destructive",
+      })
+    },
+  })
+}

@@ -16,3 +16,23 @@ export const getCodegenList = async (
   })
   return response.json()
 }
+
+export const getCodegenDetail = async (
+  params: CodegenApi.DetailRequest,
+): Promise<CodegenApi.DetailResponse> => {
+  try {
+    const filteredParams = Object.fromEntries(
+      Object.entries(params).filter(([, value]) => value !== undefined),
+    )
+    const queryString = new URLSearchParams(
+      filteredParams as Record<string, string>,
+    ).toString()
+    const response = await request(`/codegen/detail?${queryString}`, {
+      method: "GET",
+    })
+    return await response.json()
+  } catch (error) {
+    // Error will be handled by request.ts
+    throw error
+  }
+}

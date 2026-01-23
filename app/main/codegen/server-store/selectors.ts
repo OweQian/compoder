@@ -61,3 +61,62 @@ export const useComponentCodeDetail = (id: string, codegenId: string) => {
     staleTime: 0,
   })
 }
+
+export const useGetCodegenDetail = (id: string) => {
+  return useQuery<
+    CodegenApi.DetailResponse,
+    Error,
+    CodegenApi.DetailResponse["data"]
+  >({
+    queryKey: ["codegenDetail", id],
+    queryFn: () => getCodegenDetail({ id }),
+    select: response => response.data,
+    enabled: !!id,
+  })
+}
+
+export const useGetComponentCodeList = (
+  params: ComponentCodeApi.listRequest,
+) => {
+  return useQuery<
+    ComponentCodeApi.listResponse,
+    Error,
+    {
+      data: ComponentItem[]
+      total: number
+    }
+  >({
+    queryKey: ["componentCodeList", params],
+    queryFn: () => getComponentCodeList(params),
+    select: response => ({
+      data: response.data.map(item => {
+        // Parse the latestVersionCode to extract component information
+        let codes: Record<string, string> = {}
+        let entryFile = "App.tsx"
+        const title = item.name
+        const description = item.description
+
+        try {
+          const parsed = transformComponentArtifactFromXml(
+            item.latestVersionCode,
+          )
+          codes = parsed.codes
+          entryFile = parsed.entryFile || "App.tsx"
+        } catch (error) {
+          console.error("Error parsing component code:", error)
+          // Fallback to default structure
+          codes = { "App.tsx": item.latestVersionCode || "" }
+        }
+
+        return {
+          id: String(item._id),
+          title,
+          description,
+          code: codes,
+          entryFile,
+        }
+      }),
+      total: response.total,
+    }),
+  })
+}
